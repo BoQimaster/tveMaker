@@ -18,7 +18,11 @@ return [
     // 应用映射（自动多应用模式有效）
     'app_map'          => [],
     // 域名绑定（自动多应用模式有效）
-    'domain_bind'      => [],
+    'domain_bind'      => [
+        'admin'         =>  'admin',  // 后台域名
+        'api'           =>  'api',  //  api接口域名
+        '*'             =>  'index' //其他域名默认访问
+    ],
     // 禁止URL访问的应用列表（自动多应用模式有效）
     'deny_app_list'    => [],
 
@@ -29,4 +33,6 @@ return [
     'error_message'    => '页面错误！请稍后再试～',
     // 显示错误信息
     'show_error_msg'   => true,
+
+
 ];

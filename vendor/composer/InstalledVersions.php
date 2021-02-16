@@ -151,6 +151,15 @@ private static $installed = array (
       ),
       'reference' => NULL,
     ),
+    'topthink/think-captcha' => 
+    array (
+      'pretty_version' => 'v3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1eef3717c1bcf4f5bbe2d1a1c704011d330a8b55',
+    ),
     'topthink/think-helper' => 
     array (
       'pretty_version' => 'v3.1.4',
@@ -178,6 +187,15 @@ private static $installed = array (
       ),
       'reference' => 'f48dc09050f25029d41a66bfc9c3c403e4f82024',
     ),
+    'topthink/think-template' => 
+    array (
+      'pretty_version' => 'v2.0.8',
+      'version' => '2.0.8.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'abfc293f74f9ef5127b5c416310a01fe42e59368',
+    ),
     'topthink/think-trace' => 
     array (
       'pretty_version' => 'v1.4',
@@ -186,6 +204,15 @@ private static $installed = array (
       array (
       ),
       'reference' => '9a9fa8f767b6c66c5a133ad21ca1bc96ad329444',
+    ),
+    'topthink/think-view' => 
+    array (
+      'pretty_version' => 'v1.0.14',
+      'version' => '1.0.14.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'edce0ae2c9551ab65f9e94a222604b0dead3576d',
     ),
   ),
 );
