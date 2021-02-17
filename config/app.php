@@ -21,7 +21,7 @@ return [
     'domain_bind'      => [
         'admin'         =>  'admin',  // 后台域名
         'api'           =>  'api',  //  api接口域名
-        '*'             =>  'index' //其他域名默认访问
+        '*'           =>  'index' //其他域名默认访问
     ],
     // 禁止URL访问的应用列表（自动多应用模式有效）
     'deny_app_list'    => [],

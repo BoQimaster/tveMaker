@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-02-16 15:08:08
+-- 生成日期： 2021-02-17 22:04:55
 -- 服务器版本： 5.7.26
 -- PHP 版本： 7.3.4
 
@@ -32,6 +32,7 @@ CREATE TABLE `tve_administrators` (
   `id` mediumint(8) UNSIGNED NOT NULL COMMENT '序号',
   `uid` char(32) NOT NULL COMMENT '唯一识别号',
   `username` varchar(20) NOT NULL COMMENT '用户名',
+  `nickname` varchar(10) NOT NULL DEFAULT 'tve生产者' COMMENT '昵称',
   `password` char(40) NOT NULL COMMENT '密码',
   `gender` char(1) DEFAULT NULL COMMENT '性别',
   `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
@@ -45,8 +46,8 @@ CREATE TABLE `tve_administrators` (
 -- 转存表中的数据 `tve_administrators`
 --
 
-INSERT INTO `tve_administrators` (`id`, `uid`, `username`, `password`, `gender`, `email`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
-(1, 'e3b764bb1a9c6bac9c9cf498ad0fa68d', 'tveadmin', 'd5d9082b574059ae2b110d4a12ba1ef4d51ed3cc', NULL, NULL, 0, NULL, '2021-02-16 00:00:00', NULL);
+INSERT INTO `tve_administrators` (`id`, `uid`, `username`, `nickname`, `password`, `gender`, `email`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
+(1, 'e3b764bb1a9c6bac9c9cf498ad0fa68d', 'tveadmin', '超级管理员', 'd5d9082b574059ae2b110d4a12ba1ef4d51ed3cc', NULL, NULL, 0, NULL, '2021-02-16 00:00:00', NULL);
 
 --
 -- 转储表的索引

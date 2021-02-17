@@ -8,9 +8,14 @@ const routes = [
     component: Home
   },
   {
-    path: '/about',
-    name: 'About',
-    component: () => import('../views/About.vue')
+    path: '/changePassword',
+    name: 'ChangePassword',
+    component: () => import('../views/ChangePassword.vue')
+  },
+  {
+    path: '/tveMaker',
+    name: 'TveMaker',
+    component: () => import('../views/TveMaker.vue')
   }
 ]
 

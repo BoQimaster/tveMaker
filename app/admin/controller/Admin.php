@@ -5,7 +5,7 @@ namespace app\admin\controller;
 
 use think\facade\View;
 use think\Request;
-use app\admin\model\Administrators as AdminModel;
+use app\admin\model\administrators as AdminModel;
 
 class Admin
 {

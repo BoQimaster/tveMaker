@@ -38,3 +38,8 @@ npm install element-plus --save
 ~~~
 
 更多详细介绍查看 Element-Plus [官方文档](https://element-plus.gitee.io/#/zh-CN/component/installation)
+
+###安装axios
+~~~
+npm i axios
+~~~

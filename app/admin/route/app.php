@@ -3,7 +3,7 @@
 use think\facade\Route;
 
 
-Route::resource('/', 'Admin');
+//Route::resource('/', 'Admin');
 
 // 登录模块路由
 Route::group(function() {
