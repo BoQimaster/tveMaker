@@ -11,10 +11,10 @@
               <el-col :span="12">
                   <el-row type="flex" justify="end">
                     <div class="block">
-                      <span>你好，{{admin.nickname}}</span>
+                      <span>你好，{{nickname}}</span>
                     </div>
                     <div class="block">
-                      <el-avatar class="avatar" shape="square" :size="50" :src="adminAvatarUrl" @error="errorHandler">
+                      <el-avatar class="avatar" shape="square" :size="50" :src="avatar" @error="errorHandler">
                       <i class="el-icon-user-solid"></i>
                     </el-avatar></div>
                   </el-row>
@@ -34,18 +34,20 @@
 </template>
 
 <script>
+import { mapState } from 'vuex'
+
 export default {
   name: "TveMaker",
 
   data() {
     return {
-      admin: {
-        nickname: '未知生产者',
-      },
-      adminAvatarUrl: '',
 
     }
   },
+  computed: mapState({
+    nickname: state => state.adminInfo.nickname,
+    avatar: state => state.adminInfo.avatar
+  }),
   methods: {
     errorHandler() {
       return true

@@ -2,6 +2,7 @@
   <div id="nav">
     <router-link to="/">Home</router-link> |
     <router-link to="/tveMaker">TveMaker</router-link> |
+    <router-link to="/upload">Upload</router-link> |
     <router-link to="/changePassword">ChangePassword</router-link> |
   </div>
   <router-view/>

@@ -12,3 +12,5 @@ Route::group(function() {
 });
 
 Route::get('captcha','captcha/index');
+
+Route::resource('upload', 'Upload');

@@ -12,10 +12,6 @@ class Login extends BaseController
     public function index()
     {
 
-        $data = Administrators::select();
-
-        return json($data);
-
     }
 
     public function check(Request $request)
@@ -46,16 +42,15 @@ class Login extends BaseController
             $errors[] = '验证码错误';
         }
 
-        // 获取登录账号数据
-        $info = Administrators::where('username', $data['username'])->find();
-
-        // 数据整体
-        $info = $info->visible(['nickname']);
-
         // 验证判断
         if(!empty($errors)) {
             return $errors;
         } else {
+            // 获取登录账号数据
+            $info = Administrators::where('username', $data['username'])->find();
+            // 数据整体
+            $info = $info->visible(['id','nickname', 'avatar']);
+
             return $info;
         }
 

@@ -123,6 +123,9 @@ export default {
       }
     }
   },
+  computed: {
+
+  },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
@@ -130,12 +133,13 @@ export default {
           // getUser('/admin.php/login').then(data => {
           //   console.log(data)
           // })
-          login('/admin.php/login_check', this.ruleForm).then(data => {
+          login('admin.php/login_check', this.ruleForm).then(data => {
             try{
-              if (data.username) {
-                console.log(data)
-                // this.$router.push('/tveMaker')
+              if (data.id) {
+                this.$store.commit('getInfo', data)
+                this.$router.push('/tveMaker')
               } else {
+                console.log(this.$store.state.nickname)
                 console.log(data)
               }
             } catch(err) {

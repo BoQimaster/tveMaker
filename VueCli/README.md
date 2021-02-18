@@ -43,3 +43,9 @@ npm install element-plus --save
 ~~~
 npm i axios
 ~~~
+
+####nginx设置接收跨域请求(实际部署不存在跨域问题)
+```
+在conf文件里server域名配置下location ~ \.php{*这里面添加*}
+add_header 'Access-Control-Allow-Origin' '*' always;
+```

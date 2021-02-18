@@ -3,11 +3,12 @@ declare (strict_types = 1);
 
 namespace app\admin\controller;
 
-use think\facade\View;
+use app\admin\model\Administrators;
+use think\Exception;
+use think\facade\Filesystem;
 use think\Request;
-use app\admin\model\administrators as AdminModel;
 
-class Admin
+class Upload
 {
     /**
      * 显示资源列表
@@ -16,10 +17,7 @@ class Admin
      */
     public function index()
     {
-//        $uid = microtime();
-//        $password = 'q6447218';
-//        dd(md5($uid).'    |    '.sha1($password));
-        return View::fetch('index');
+        return   '上传资源';
     }
 
     /**
@@ -30,7 +28,24 @@ class Admin
      */
     public function save(Request $request)
     {
-        //
+        // 定位更新对象
+        $id = $request->param('id');
+
+        if($id) {
+            // 查找数据
+            $user = Administrators::find($id);
+            // 接收文件
+            $file = $request->file('avatar');
+            // 存储文件获取url
+            $info = 'http://www.tvemaker.com/storage/'.Filesystem::putFile('img/avatar', $file);
+            // 更新头像地址
+            $user->avatar = $info;
+            $user->save();
+            return json($info);
+        } else{
+            return json('用户信息有误');
+        }
+
     }
 
     /**
@@ -53,7 +68,8 @@ class Admin
      */
     public function update(Request $request, $id)
     {
-        //
+
+        return 'update';
     }
 
     /**

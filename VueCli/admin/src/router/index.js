@@ -13,6 +13,11 @@ const routes = [
     component: () => import('../views/ChangePassword.vue')
   },
   {
+    path: '/upload',
+    name: 'Upload',
+    component: () => import('../views/Upload.vue')
+  },
+  {
     path: '/tveMaker',
     name: 'TveMaker',
     component: () => import('../views/TveMaker.vue')
