@@ -1,4 +1,4 @@
-import axios from 'axios'
+import axios from "axios";
 
 export function getCaptcha(url) {
     return new Promise((resolve, reject) => {

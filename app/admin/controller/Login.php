@@ -3,9 +3,10 @@ namespace app\admin\controller;
 
 
 use app\admin\model\Administrators;
+use app\BaseController;
 use think\Request;
 
-class Login
+class Login extends BaseController
 {
     public function index()
     {

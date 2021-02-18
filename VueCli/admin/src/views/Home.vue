@@ -130,7 +130,7 @@ export default {
           // getUser('/admin.php/login').then(data => {
           //   console.log(data)
           // })
-          login('/admin.php/login_check', this.ruleForm).then(data => {
+          login('/login_check', this.ruleForm).then(data => {
             try{
               if (data.username) {
                 this.$router.push('/tveMaker')
