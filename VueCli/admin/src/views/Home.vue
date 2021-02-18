@@ -130,10 +130,13 @@ export default {
           // getUser('/admin.php/login').then(data => {
           //   console.log(data)
           // })
-          login('/login_check', this.ruleForm).then(data => {
+          login('/admin.php/login_check', this.ruleForm).then(data => {
             try{
               if (data.username) {
-                this.$router.push('/tveMaker')
+                console.log(data)
+                // this.$router.push('/tveMaker')
+              } else {
+                console.log(data)
               }
             } catch(err) {
               console.log(err)
@@ -151,11 +154,9 @@ export default {
       })
     }
   },
-  mounted() {
-    this.$nextTick(function () {
-      getCaptcha('/captcha').then(data => {
-        this.image.url = data
-      })
+  created() {
+    getCaptcha('/captcha').then(data => {
+      this.image.url = data
     })
   }
 }

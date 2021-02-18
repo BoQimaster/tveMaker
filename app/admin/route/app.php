@@ -10,3 +10,5 @@ Route::group(function() {
     Route::get('login', 'Login/index');
     Route::post('login_check', 'Login/check');
 });
+
+Route::get('captcha','captcha/index');

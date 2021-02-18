@@ -3,23 +3,23 @@ module.exports = {
         proxy: {
             '/captcha': {
                 target: 'http://admin.tvemaker.com',
-                changeOrigin: false,
+                changeOrigin: true,
                 pathRewrite: {
                     '^/captcha': '/captcha'
                 }
             },
-            '/login': {
-                target: 'http://admin.tvemaker.com',
-                changeOrigin: false,
+            '/admin.php/login': {
+                target: 'http://www.tvemaker.com',
+                changeOrigin: true,
                 pathRewrite: {
-                    '^/login': '/login'
+                    '^/admin.php/login': '/admin.php/login'
                 }
             },
             '/admin.php/login_check': {
-                target: 'http://admin.tvemaker.com',
-                changeOrigin: false,
+                target: 'http://www.tvemaker.com',
+                changeOrigin: true,
                 pathRewrite: {
-                    '^/login_check': '/login_check'
+                    '^/admin.php/login_check': '/admin.php/login_check'
                 }
             }
         }
