@@ -2,7 +2,7 @@
   <div class="home">
       <div class="layout">
         <el-container>
-          <el-header height="150px"></el-header>
+          <el-header height="150px">231</el-header>
 <!-- 登录UI-->
           <el-main>
               <el-row type="flex" justify="center">
@@ -62,9 +62,11 @@
 </template>
 
 <script>
-import { getCaptcha } from "@/http/api";
-import { getUser} from "@/http/api";
-import { login } from "@/http/api";
+import { getCaptcha } from "@/http/api"
+import { login } from "@/http/api"
+import { ElMessage } from 'element-plus'
+
+
 
 export default {
   name: 'Home',
@@ -139,8 +141,15 @@ export default {
                 this.$store.commit('getInfo', data)
                 this.$router.push('/tveMaker')
               } else {
-                console.log(this.$store.state.nickname)
-                console.log(data)
+                let errs = ''
+                for (let err of data) {
+                    errs += err
+                }
+                ElMessage({
+                  showClose: true,
+                  message: errs,
+                  type: 'error',
+                })
               }
             } catch(err) {
               console.log(err)
@@ -164,6 +173,8 @@ export default {
     })
   }
 }
+
+
 </script>
 
 <style scoped>
