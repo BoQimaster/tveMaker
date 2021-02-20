@@ -2,7 +2,7 @@
   <div class="home">
       <div class="layout">
         <el-container>
-          <el-header height="150px">231</el-header>
+          <el-header height="100px"></el-header>
 <!-- 登录UI-->
           <el-main>
               <el-row type="flex" justify="center">
@@ -139,17 +139,18 @@ export default {
             try{
               if (data.id) {
                 this.$store.commit('getInfo', data)
-                this.$router.push('/tveMaker')
+                this.$message.success('验证成功！欢迎 ' + data.nickname )
+                setTimeout(() => this.$router.push('/tveMaker'), 1000)
               } else {
-                let errs = ''
                 for (let err of data) {
-                    errs += err
+                    setTimeout(function() {
+                      ElMessage({
+                        showClose: true,
+                        message: err,
+                        type: 'error',
+                      })
+                    }, 50)
                 }
-                ElMessage({
-                  showClose: true,
-                  message: errs,
-                  type: 'error',
-                })
               }
             } catch(err) {
               console.log(err)
