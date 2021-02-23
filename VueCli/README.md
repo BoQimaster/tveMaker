@@ -18,9 +18,9 @@ npm install -g @vue/cli-service-global
 vue create hello-world
 ~~~
 
-安装丢失的 <font color=#996600> node_modules </font> 文件夹
+安装丢失的 <font color=#996600> node_modules </font> 模块文件
 ~~~
-npm install express
+npm install
 ~~~
 
 history 模式下运行单页面生产环境
