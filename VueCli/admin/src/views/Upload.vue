@@ -6,7 +6,7 @@
           <el-upload
               class="avatar-uploader"
               name="avatar"
-              action="http://admin.tvemaker.com/upload"
+              action="http://api.tvemaker.com/upload"
               :data="id"
               :show-file-list="false"
               :on-error="uploadError"
@@ -23,6 +23,7 @@
 </template>
 
 <script>
+
 
 export default {
 name: "Upload",
@@ -42,6 +43,7 @@ name: "Upload",
     },
     handleAvatarSuccess(res, file) {
       if(res){
+        console.log(res)
         this.imageUrl = URL.createObjectURL(file.raw);
       }
     },

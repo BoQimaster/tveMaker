@@ -2,24 +2,24 @@ module.exports = {
     devServer: {
         proxy: {
             '/captcha': {
-                target: 'http://admin.tvemaker.com',
+                target: 'http://api.tvemaker.com',
                 changeOrigin: true,
                 pathRewrite: {
                     '^/captcha': '/captcha'
                 }
             },
-            '/admin.php/login': {
-                target: 'http://www.tvemaker.com',
+            '/upload': {
+                target: 'http://api.tvemaker.com',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/admin.php/login': '/admin.php/login'
+                    '^/upload': '/upload'
                 }
             },
-            '/admin.php/login_check': {
-                target: 'http://www.tvemaker.com',
+            '/login_check': {
+                target: 'http://api.tvemaker.com',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/admin.php/login_check': '/admin.php/login_check'
+                    '^/login_check': '/login_check'
                 }
             }
         }

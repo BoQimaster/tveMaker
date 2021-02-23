@@ -3,8 +3,7 @@ declare (strict_types = 1);
 
 namespace app\controller;
 
-use app\model\Administrators;
-use think\Exception;
+use app\model\Administrators as AdminModel;
 use think\facade\Filesystem;
 use think\Request;
 
@@ -33,19 +32,24 @@ class Upload
 
         if($id) {
             // 查找数据
-            $user = Administrators::find($id);
+            $user = AdminModel::find($id);
             // 接收文件
             $file = $request->file('avatar');
+
             // 存储文件获取url
-            $info = app()->getRuntimePath() . '/storage/' . Filesystem::putFile('img/avatar', $file);
+            $info = Filesystem::putFile('/img/avatar', $file);
+
+            // 获取存储位置
+            $url = 'http://api.tvemaker.com/' .Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\','/',$info);
+
             // 更新头像地址
-            $user->avatar = $info;
+            $user->avatar = $url;
             $user->save();
-            return json($info);
+            return json($url);
         } else{
             return json('用户信息有误');
         }
-        return 'save';
+//        return 'save';
 
     }
 

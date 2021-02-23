@@ -14,11 +14,12 @@ export function getCaptcha(url) {
     })
 }
 
-export function getUser(url) {
+export function upload(url, data) {
     return new Promise((resolve, reject) => {
         axios({
-            method: 'get',
+            method: 'post',
             url: url,
+            data: data,
             responseType: 'json',
         }).then(res => {
             resolve (res.data)

@@ -39,7 +39,7 @@
                               <el-col>
                                 <el-checkbox label="下次自动登录" v-model="ruleForm.checkCookie" autocomplete="off"></el-checkbox>
                               </el-col>
-                              <el-col :push="12"><el-link :underline="false" type="info" href="/changePassword">重置密码</el-link></el-col>
+                              <el-col :push="8"><el-link :underline="false" type="info" href="/changePassword">重置密码</el-link></el-col>
                             </el-form-item>
                             <el-form-item>
                               <el-row>
@@ -135,14 +135,14 @@ export default {
           // getUser('/admin.php/login').then(data => {
           //   console.log(data)
           // })
-          login('admin.php/login_check', this.ruleForm).then(data => {
+          login('/login_check', this.ruleForm).then(data => {
             try{
               if (data.id) {
                 this.$store.commit('getInfo', data)
-                this.$message.success('验证成功！欢迎 ' + data.nickname )
+                this.$message.success('验证成功！欢迎 ' + data.nickname)
                 setTimeout(() => this.$router.push('/tveMaker'), 1000)
               } else {
-                for (let err of data) {
+                for (const err of data) {
                     setTimeout(function() {
                       ElMessage({
                         showClose: true,

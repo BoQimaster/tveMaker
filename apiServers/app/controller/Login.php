@@ -2,7 +2,7 @@
 namespace app\controller;
 
 
-use app\model\Administrators;
+use app\model\Administrators as AdminModel;
 use app\BaseController;
 use think\facade\Validate;
 use think\Request;
@@ -47,12 +47,12 @@ class Login extends BaseController
             return json($errors);
         } else {
             // 获取登录账号数据
-//            $info = Administrators::where('name', $data['username'])->find();
+            $info = AdminModel::where('name', $data['username'])->find();
             // 数据整体,返回id，昵称和头像地址
-//            $info = $info->visible(['id','nickname', 'avatar']);
+            $info = $info->visible(['id','nickname', 'avatar']);
 
-//            return json($info);
-            return 'cookie';
+            return json($info);
+//            return 'cookie';
         }
 
 
