@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： localhost
--- 生成日期： 2021-02-23 23:13:02
+-- 生成日期： 2021-02-24 01:31:27
 -- 服务器版本： 5.7.26
 -- PHP 版本： 7.3.9
 
@@ -54,7 +54,7 @@ CREATE TABLE `tve_administrators` (
   `uid` char(32) NOT NULL COMMENT '唯一识别号MD5',
   `name` varchar(20) NOT NULL COMMENT '用户名',
   `password` char(40) NOT NULL COMMENT '密码sha1',
-  `nick` varchar(10) NOT NULL DEFAULT 'tve生产者' COMMENT '昵称',
+  `nickname` varchar(10) NOT NULL DEFAULT 'tve生产者' COMMENT '昵称',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像url',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
   `delete_time` datetime DEFAULT NULL COMMENT '软删除时间',
@@ -66,8 +66,8 @@ CREATE TABLE `tve_administrators` (
 -- 转存表中的数据 `tve_administrators`
 --
 
-INSERT INTO `tve_administrators` (`id`, `uid`, `name`, `password`, `nick`, `avatar`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
-(1, '4314cc73fec9fc3ade64db14388c946d', 'tvemaker', '7c4a8d09ca3762af61e59520943dc26494f8941b', '超级管理员', NULL, 0, NULL, '2021-02-23 17:48:58', '2021-02-23 21:44:00');
+INSERT INTO `tve_administrators` (`id`, `uid`, `name`, `password`, `nickname`, `avatar`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
+(1, '4314cc73fec9fc3ade64db14388c946d', 'tvemaker', '7c4a8d09ca3762af61e59520943dc26494f8941b', '超级管理员', 'http://api.tvemaker.com//storage/img/avatar/20210224/bc40605adcb1d34caf9a7855627aaeb9.jpg', 0, NULL, '2021-02-23 17:48:58', '2021-02-24 01:28:14');
 
 -- --------------------------------------------------------
 
