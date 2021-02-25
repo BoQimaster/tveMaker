@@ -36,22 +36,33 @@
 <script>
 import { mapState } from 'vuex';
 
+const userData = JSON.parse(sessionStorage.getItem('userData'))
+
 export default {
   name: "TveMaker",
 
   data() {
     return {
 
+
     }
   },
-  computed: mapState({
-    nickname: state => state.adminInfo.nickname,
-    avatar: state => state.adminInfo.avatar
-  }),
+  computed: {
+    nickname() {
+      return userData.nickname;
+    },
+    avatar() {
+      return userData.avatar;
+    },
+    ...mapState({
+
+    })
+  },
   methods: {
     errorHandler() {
       return true
-    }
+    },
+
   }
 
 }

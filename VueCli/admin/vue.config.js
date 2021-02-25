@@ -1,5 +1,7 @@
 module.exports = {
     devServer: {
+        // host: 'admin.tvemaker.com',
+
         proxy: {
             '/captcha': {
                 target: 'http://api.tvemaker.com',

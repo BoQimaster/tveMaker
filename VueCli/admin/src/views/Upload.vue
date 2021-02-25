@@ -12,11 +12,11 @@
               :on-error="uploadError"
               :on-success="handleAvatarSuccess"
               :before-upload="beforeAvatarUpload">
-            <img v-if="imageUrl" :src="imageUrl" class="avatar">
+            <img v-if="imageUrl" :src="imageUrl" class="avatar" />
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-main>
-        {{id.id}}
+        {{id}}
         <el-footer>footer</el-footer>
       </el-container>
     </div>
@@ -24,18 +24,25 @@
 
 <script>
 
+import {mapState} from "vuex";
 
+const userData = JSON.parse(sessionStorage.getItem('userData'))
+//
 export default {
 name: "Upload",
 
   data() {
     return {
       imageUrl: '',
-      id: {
-        id: this.$store.state.adminInfo.id
-      }
+      id: userData.id
+
 
     }
+  },
+  computed: {
+    ...mapState({
+
+    })
   },
   methods: {
     uploadError(err, file){

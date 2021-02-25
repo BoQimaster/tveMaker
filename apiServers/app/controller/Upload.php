@@ -40,7 +40,7 @@ class Upload
             $info = Filesystem::putFile('/img/avatar', $file);
 
             // 获取存储位置
-            $url = 'http://api.tvemaker.com/' .Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\','/',$info);
+            $url = 'http://api.tvemaker.com' .Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\','/',$info);
 
             // 更新头像地址
             $user->avatar = $url;

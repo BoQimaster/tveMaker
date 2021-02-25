@@ -62,9 +62,10 @@
 </template>
 
 <script>
-import { getCaptcha } from "@/http/api"
-import { login } from "@/http/api"
-import { ElMessage } from 'element-plus'
+import { getCaptcha } from "@/http/api";
+import { login } from "@/http/api";
+import { ElMessage } from 'element-plus';
+import { mapState } from 'vuex';
 
 
 
@@ -126,19 +127,23 @@ export default {
     }
   },
   computed: {
-
+    test() {
+      return 'test'
+    },
+    ...mapState({
+      userData: state => state.userData,
+    }),
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          // getUser('/admin.php/login').then(data => {
-          //   console.log(data)
-          // })
           login('/login_check', this.ruleForm).then(data => {
             try{
               if (data.id) {
-                this.$store.commit('getInfo', data)
+                const userData = JSON.stringify(data)
+                // this.$store.commit('getInfo', data)
+                sessionStorage.setItem('userData', userData)
                 this.$message.success('验证成功！欢迎 ' + data.nickname)
                 setTimeout(() => this.$router.push('/tveMaker'), 1000)
               } else {
