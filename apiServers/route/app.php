@@ -16,14 +16,11 @@ Route::get('think', function () {
 
 Route::get('hello/:name', 'index/hello');
 
-// 登录模块路由
-Route::group(function() {
-    Route::get('login', 'Login/index');
-    Route::post('login_check', 'Login/check');
-});
+// 后台登录模块路由
+Route::post('login_check', 'AdminLogin/check');
 
 // 验证码
-Route::get('captcha','captcha/index');
+Route::get('captcha','Captcha/index');
 
 // 文件上传
-Route::resource('upload', 'Upload');
+Route::resource('admin_upload', 'AdminUpload');

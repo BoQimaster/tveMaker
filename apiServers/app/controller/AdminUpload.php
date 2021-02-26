@@ -7,7 +7,7 @@ use app\model\Administrators as AdminModel;
 use think\facade\Filesystem;
 use think\Request;
 
-class Upload
+class AdminUpload
 {
     /**
      * 显示资源列表
@@ -28,7 +28,7 @@ class Upload
     public function save(Request $request)
     {
         // 定位更新对象
-        $id = $request->param('id');
+        $id = $request->param('data').id;
 
         if($id) {
             // 查找数据

@@ -1,6 +1,5 @@
 module.exports = {
     devServer: {
-        // host: 'admin.tvemaker.com',
 
         proxy: {
             '/captcha': {
@@ -10,11 +9,11 @@ module.exports = {
                     '^/captcha': '/captcha'
                 }
             },
-            '/upload': {
+            '/admin_upload': {
                 target: 'http://api.tvemaker.com',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/upload': '/upload'
+                    '^/admin_upload': '/admin_upload'
                 }
             },
             '/login_check': {

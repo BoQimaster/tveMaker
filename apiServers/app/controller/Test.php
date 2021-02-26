@@ -11,7 +11,8 @@ class Test extends BaseController
     public function index()
     {
         $admin = AdminModel::find(1);
-        return json($admin->administratorsInfo);
+        $admin->cookie = true;
+        return json($admin);
     }
 
     public function many()

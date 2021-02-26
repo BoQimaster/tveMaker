@@ -35,25 +35,20 @@
 
 <script>
 import { mapState } from 'vuex';
-
-const userData = JSON.parse(sessionStorage.getItem('userData'))
+import { getCookie } from "@/http/cookie";
+import { checkCookie } from "@/http/cookie";
 
 export default {
   name: "TveMaker",
 
   data() {
     return {
-
-
+      nickname: '',
+      avatar: '',
     }
   },
   computed: {
-    nickname() {
-      return userData.nickname;
-    },
-    avatar() {
-      return userData.avatar;
-    },
+
     ...mapState({
 
     })
@@ -63,6 +58,21 @@ export default {
       return true
     },
 
+  },
+  // 加载之前初始化数据
+  created() {
+    if (checkCookie('userData')) {
+      const userData = JSON.parse(getCookie('userData'))
+      this.nickname = userData.nickname
+      this.avatar = userData.avatar
+    } else if (sessionStorage.key('userData')) {
+      let userData = sessionStorage.getItem('userData')
+      userData = JSON.parse(decodeURIComponent(userData))
+      this.nickname = userData.nickname
+      this.avatar = userData.avatar
+    } else {
+      this.$router.push('/')
+    }
   }
 
 }

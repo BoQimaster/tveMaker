@@ -6,8 +6,8 @@
           <el-upload
               class="avatar-uploader"
               name="avatar"
-              action="http://api.tvemaker.com/upload"
-              :data="id"
+              action="http://api.tvemaker.com/admin_upload"
+              :data="data"
               :show-file-list="false"
               :on-error="uploadError"
               :on-success="handleAvatarSuccess"
@@ -16,7 +16,7 @@
             <i v-else class="el-icon-plus avatar-uploader-icon"></i>
           </el-upload>
         </el-main>
-        {{id}}
+        {{data.id}}
         <el-footer>footer</el-footer>
       </el-container>
     </div>
@@ -24,17 +24,20 @@
 
 <script>
 
-import {mapState} from "vuex";
+import { mapState } from "vuex";
+import { checkCookie } from "@/http/cookie";
+import { getCookie } from "@/http/cookie";
 
-const userData = JSON.parse(sessionStorage.getItem('userData'))
-//
+
 export default {
 name: "Upload",
 
   data() {
     return {
       imageUrl: '',
-      id: userData.id
+      data: {
+        id: ''
+      }
 
 
     }
@@ -45,7 +48,7 @@ name: "Upload",
     })
   },
   methods: {
-    uploadError(err, file){
+    uploadError(err){
       console.log(err)
     },
     handleAvatarSuccess(res, file) {
@@ -65,6 +68,19 @@ name: "Upload",
         this.$message.error('上传头像图片大小不能超过 2MB!');
       }
       return isJPG && isLt2M;
+    }
+  },
+  // 加载之前初始化数据
+  created() {
+    if (checkCookie('userData')) {
+      const userData = JSON.parse(getCookie('userData'))
+      this.data.id = userData.id
+    } else if (sessionStorage.key('userData')) {
+      let userData = sessionStorage.getItem('userData')
+      userData = JSON.parse(decodeURIComponent(userData))
+      this.data.id = userData.id
+    } else {
+      this.$router.push('/')
     }
   }
 }
