@@ -13,20 +13,14 @@ use think\Request;
  */
 class AdminLogin
 {
-    /**
-     * 管理后台登录验证
-     * @param Request $request
-     * @return \think\response\Json
-     * @throws \think\db\exception\DataNotFoundException
-     * @throws \think\db\exception\DbException
-     * @throws \think\db\exception\ModelNotFoundException
-     */
+
     public function check(Request $request)
     {
         $data = $request->param();
 
         // 错误集合
         $errors = [];
+
 
         // 验证
         $validate = Validate::rule([
@@ -43,11 +37,20 @@ class AdminLogin
             $errors[] = '用户名或密码错误~';
         }
 
-        // 验证码
-        if( !captcha_check($data['captcha'])) {
+       // 验证码
+        if(!captcha_check($data['captcha'])) {
 
             $errors[] = '验证码错误';
         }
+
+        // Token
+        $check = $request->checkToken('__token__', $data);
+
+        if(false === $check) {
+            $errors[] = '令牌无效请重新获取~';
+        }
+
+
 
         // 验证判断
         if(!empty($errors)) {
@@ -74,11 +77,12 @@ class AdminLogin
     /**
      * 显示资源列表
      *
+     * @param  \think\Request  $request
      * @return \think\Response
      */
-    public function index()
+    public function index(Request $request)
     {
-        // return 'AdminLogin';
+        //
     }
 
     /**
@@ -100,7 +104,7 @@ class AdminLogin
      */
     public function read($id)
     {
-        //
+//        return 'read';
     }
 
     /**

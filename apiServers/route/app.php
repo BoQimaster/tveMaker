@@ -14,13 +14,13 @@ Route::get('think', function () {
     return 'hello,ThinkPHP6!';
 });
 
+
 Route::get('hello/:name', 'index/hello');
 
 // 后台登录模块路由
+Route::get('token', 'Token/index');
 Route::post('login_check', 'AdminLogin/check');
 
-// 验证码
-Route::get('captcha','Captcha/index');
 
 // 文件上传
 Route::resource('admin_upload', 'AdminUpload');

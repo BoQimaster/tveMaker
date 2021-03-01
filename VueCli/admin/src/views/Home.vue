@@ -62,11 +62,10 @@
 </template>
 
 <script>
-import { getCaptcha } from "@/http/api";
-import { login } from "@/http/api";
+import { getYZ } from "@/http/api";
+import {  login } from "@/http/api";
 import { ElMessage } from 'element-plus';
-import { checkCookie } from "@/http/cookie";
-import { setCookie } from "@/http/cookie";
+import { checkCookie, setCookie } from "@/http/cookie";
 
 
 export default {
@@ -103,6 +102,7 @@ export default {
         password: '',
         captcha: '',
         cookie: false,
+        __token__: ''
       },
       rules: {
         username: [
@@ -154,7 +154,7 @@ export default {
                 this.$message.success('验证成功！欢迎 ' + data.nickname)
                 setTimeout(() => this.$router.push('/tveMaker'), 1000)
               } else {
-                for (const err of data) {
+                for (let err of data) {
                   setTimeout(function() {
                     ElMessage({
                       showClose: true,
@@ -175,18 +175,20 @@ export default {
       });
     },
     refCaptcha() {
-      getCaptcha('/captcha').then(data => {
-        this.image.url = data
+      getYZ('/token').then(data => {
+        this.ruleForm.__token__ = data['token']
+        this.image.url = data['captcha']
       })
     }
   },
   // 加载页面之前初始化
-  beforeCreate() {
+  created() {
     if (checkCookie('userData') || sessionStorage.key('userData')) {
       this.$router.push('/tveMaker')
     } else {
-      getCaptcha('/captcha').then(data => {
-        this.image.url = data
+      getYZ('/token').then(data => {
+        this.ruleForm.__token__ = data['token']
+        this.image.url = data['captcha']
       })
     }
   }

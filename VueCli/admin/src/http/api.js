@@ -1,13 +1,13 @@
 import axios from "axios";
 
-export function getCaptcha(url) {
+export function getYZ(url) {
     return new Promise((resolve, reject) => {
         axios({
             method: 'get',
             url: url,
-            responseType: 'arraybuffer'
+            responseType: 'json'
         }).then(res => {
-            resolve ('data:image/png;base64,' + btoa(new Uint8Array(res.data).reduce((data, byte) => data + String.fromCharCode(byte), '')))
+            resolve(res.data)
         }).catch(err => {
             reject(err.data)
         })

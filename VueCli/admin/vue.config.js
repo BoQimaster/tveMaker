@@ -22,6 +22,13 @@ module.exports = {
                 pathRewrite: {
                     '^/login_check': '/login_check'
                 }
+            },
+            '/token': {
+                target: 'http://api.tvemaker.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/token': '/token'
+                }
             }
         }
     }

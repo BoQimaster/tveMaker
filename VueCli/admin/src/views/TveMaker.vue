@@ -14,11 +14,27 @@
                       <span>你好，{{nickname}}</span>
                     </div>
                     <div class="block">
-                      <el-avatar class="avatar" shape="square" :size="50" :src="avatar" @error="errorHandler">
-                      <i class="el-icon-user-solid"></i>
-                    </el-avatar></div>
+                      <el-dropdown>
+                        <el-avatar class="avatar el-dropdown-link" shape="square" :size="50" :src="avatar" @error="errorHandler">
+                          <i class="el-icon-user-solid"></i>
+                        </el-avatar>
+                        <template #dropdown>
+                          <el-dropdown-menu>
+                            <el-dropdown-item @click="logoutDialogVisible = true"><i class="el-icon-switch-button"></i>退出登录</el-dropdown-item>
+                          </el-dropdown-menu>
+                        </template>
+                      </el-dropdown>
+                      <el-dialog v-model="logoutDialogVisible">
+                          <span>确定要退出吗?</span>
+                        <template #footer>
+                            <span class="dialog-footer">
+                              <el-button @click="logoutDialogVisible = false">取 消</el-button>
+                              <el-button type="primary" @click="logout">确 定</el-button>
+                            </span>
+                        </template>
+                      </el-dialog>
+                    </div>
                   </el-row>
-
               </el-col>
         </el-row>
       </el-header>
@@ -35,8 +51,7 @@
 
 <script>
 import { mapState } from 'vuex';
-import { getCookie } from "@/http/cookie";
-import { checkCookie } from "@/http/cookie";
+import { getCookie, checkCookie, logout } from "@/http/cookie";
 
 export default {
   name: "TveMaker",
@@ -45,6 +60,8 @@ export default {
     return {
       nickname: '',
       avatar: '',
+      logoutDialogVisible: false,
+
     }
   },
   computed: {
@@ -56,6 +73,10 @@ export default {
   methods: {
     errorHandler() {
       return true
+    },
+    logout() {
+      logout('userData')
+      this.$router.push('/')
     },
 
   },
