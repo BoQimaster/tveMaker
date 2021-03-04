@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 5.0.2
 -- https://www.phpmyadmin.net/
 --
--- 主机： localhost
--- 生成日期： 2021-02-24 01:31:27
--- 服务器版本： 5.7.26
--- PHP 版本： 7.3.9
+-- 主机： 127.0.0.1
+-- 生成日期： 2021-03-04 23:23:26
+-- 服务器版本： 8.0.19
+-- PHP 版本： 7.4.6
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -29,9 +28,9 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE `tve_access` (
-  `id` mediumint(8) UNSIGNED NOT NULL COMMENT '序号',
-  `administrators_id` mediumint(8) UNSIGNED NOT NULL COMMENT '账号关联id',
-  `role_id` mediumint(8) UNSIGNED NOT NULL COMMENT '权限关联id'
+  `id` mediumint UNSIGNED NOT NULL COMMENT '序号',
+  `administrators_id` mediumint UNSIGNED NOT NULL COMMENT '账号关联id',
+  `role_id` mediumint UNSIGNED NOT NULL COMMENT '权限关联id'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -50,10 +49,11 @@ INSERT INTO `tve_access` (`id`, `administrators_id`, `role_id`) VALUES
 --
 
 CREATE TABLE `tve_administrators` (
-  `id` mediumint(8) UNSIGNED NOT NULL COMMENT '序号',
+  `id` mediumint UNSIGNED NOT NULL COMMENT '序号',
   `uid` char(32) NOT NULL COMMENT '唯一识别号MD5',
   `name` varchar(20) NOT NULL COMMENT '用户名',
   `password` char(40) NOT NULL COMMENT '密码sha1',
+  `email` varchar(100) NOT NULL COMMENT '邮箱',
   `nickname` varchar(10) NOT NULL DEFAULT 'tve生产者' COMMENT '昵称',
   `avatar` varchar(255) DEFAULT NULL COMMENT '头像url',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '状态',
@@ -66,8 +66,8 @@ CREATE TABLE `tve_administrators` (
 -- 转存表中的数据 `tve_administrators`
 --
 
-INSERT INTO `tve_administrators` (`id`, `uid`, `name`, `password`, `nickname`, `avatar`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
-(1, '4314cc73fec9fc3ade64db14388c946d', 'tvemaker', '7c4a8d09ca3762af61e59520943dc26494f8941b', '超级管理员', 'http://api.tvemaker.com//storage/img/avatar/20210224/bc40605adcb1d34caf9a7855627aaeb9.jpg', 0, NULL, '2021-02-23 17:48:58', '2021-02-24 01:28:14');
+INSERT INTO `tve_administrators` (`id`, `uid`, `name`, `password`, `email`, `nickname`, `avatar`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
+(1, '4314cc73fec9fc3ade64db14388c946d', 'tvemaker', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'admin@tvemaker.com', '超级管理员', 'http://api.tvemaker.com//storage/img/avatar/20210224/bc40605adcb1d34caf9a7855627aaeb9.jpg', 0, NULL, '2021-02-23 17:48:58', '2021-03-04 23:16:59');
 
 -- --------------------------------------------------------
 
@@ -76,10 +76,9 @@ INSERT INTO `tve_administrators` (`id`, `uid`, `name`, `password`, `nickname`, `
 --
 
 CREATE TABLE `tve_administrators_info` (
-  `id` mediumint(8) UNSIGNED NOT NULL COMMENT '序号',
-  `administrators_id` mediumint(8) UNSIGNED NOT NULL COMMENT '账号关联id',
+  `id` mediumint UNSIGNED NOT NULL COMMENT '序号',
+  `administrators_id` mediumint UNSIGNED NOT NULL COMMENT '账号关联id',
   `gender` char(1) DEFAULT NULL COMMENT '性别',
-  `email` varchar(100) DEFAULT NULL COMMENT '邮箱',
   `delete_time` datetime DEFAULT NULL COMMENT '软删除时间',
   `create_time` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
   `update_time` datetime DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
@@ -89,8 +88,8 @@ CREATE TABLE `tve_administrators_info` (
 -- 转存表中的数据 `tve_administrators_info`
 --
 
-INSERT INTO `tve_administrators_info` (`id`, `administrators_id`, `gender`, `email`, `delete_time`, `create_time`, `update_time`) VALUES
-(1, 1, '男', 'tvemaker@tvemaker.com', NULL, '2021-02-23 21:09:51', NULL);
+INSERT INTO `tve_administrators_info` (`id`, `administrators_id`, `gender`, `delete_time`, `create_time`, `update_time`) VALUES
+(1, 1, '男', NULL, '2021-02-23 21:09:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -99,7 +98,7 @@ INSERT INTO `tve_administrators_info` (`id`, `administrators_id`, `gender`, `ema
 --
 
 CREATE TABLE `tve_role` (
-  `id` mediumint(8) UNSIGNED NOT NULL COMMENT '序号',
+  `id` mediumint UNSIGNED NOT NULL COMMENT '序号',
   `role` varchar(20) NOT NULL COMMENT '角色'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -131,7 +130,8 @@ ALTER TABLE `tve_access`
 ALTER TABLE `tve_administrators`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD UNIQUE KEY `uid` (`uid`);
+  ADD UNIQUE KEY `uid` (`uid`),
+  ADD UNIQUE KEY `email` (`email`);
 
 --
 -- 表的索引 `tve_administrators_info`
@@ -155,25 +155,25 @@ ALTER TABLE `tve_role`
 -- 使用表AUTO_INCREMENT `tve_access`
 --
 ALTER TABLE `tve_access`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=4;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=4;
 
 --
 -- 使用表AUTO_INCREMENT `tve_administrators`
 --
 ALTER TABLE `tve_administrators`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=2;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `tve_administrators_info`
 --
 ALTER TABLE `tve_administrators_info`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=2;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=2;
 
 --
 -- 使用表AUTO_INCREMENT `tve_role`
 --
 ALTER TABLE `tve_role`
-  MODIFY `id` mediumint(8) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=7;
+  MODIFY `id` mediumint UNSIGNED NOT NULL AUTO_INCREMENT COMMENT '序号', AUTO_INCREMENT=7;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
