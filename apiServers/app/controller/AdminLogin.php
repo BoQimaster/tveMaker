@@ -28,7 +28,7 @@ class AdminLogin
         ]);
 
         $result = $validate->check([
-            'name'      =>  $data['username'],
+            'name'      =>  $data['name'],
             'password'      =>  sha1($data['password'])
         ]);
 
@@ -57,7 +57,7 @@ class AdminLogin
             return json($errors);
         } else {
             // 获取登录账号数据
-            $info = AdminModel::where('name', $data['username'])->find();
+            $info = AdminModel::where('name', $data['name'])->find();
             // 数据整体,返回id，昵称和头像地址
             $info = $info->visible(['id','nickname', 'avatar'])->toArray();
 

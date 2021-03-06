@@ -160,6 +160,15 @@ class Captcha
         return $res;
     }
 
+    public function createStr(string $config = null, bool $api = false)
+    {
+        $this->configure($config);
+
+        $generator = $this->generate();
+
+        return $generator['value'];
+    }
+
     public function createApi(string $config = null, bool $api = false)
     {
         $this->configure($config);

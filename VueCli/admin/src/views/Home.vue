@@ -10,8 +10,8 @@
           <el-col :span="24">
             <el-form :model="ruleForm" status-icon :rules="rules" ref="ruleForm" label-width="80px" label-position="left">
               <el-card>
-                <el-form-item label="用户名" prop="username">
-                  <el-input v-model.trim="ruleForm.username" autocomplete="off"></el-input>
+                <el-form-item label="用户名" prop="name">
+                  <el-input v-model.trim="ruleForm.name" autocomplete="off"></el-input>
                 </el-form-item>
                 <el-form-item label="密码" prop="password">
                   <el-input type="password" v-model.trim="ruleForm.password" autocomplete="off">
@@ -61,23 +61,25 @@
             <el-step title="修改密码" status="wait"></el-step>
           </el-steps>
           <el-card class="passwordCard">
-            <el-form :model="resetForm" :label-width="formLabelWidth" class="passwordForm">
-              <el-form-item label="用户名">
-                <el-input v-model="resetForm.name" autocomplete="off" placeholder="请输入用户名"></el-input>
+            <el-form :model="resetForm"  status-icon :rules="rulePassword" ref="resetForm" :label-width="formLabelWidth" class="passwordForm">
+              <el-form-item label="用户名" prop="username">
+                <el-input v-model="resetForm.username" class="passwordInput" placeholder="请输入用户名"></el-input>
+                <el-button type="info" @click="getMail" style="margin-left: 20px; right: 0;">检查用户名</el-button>
               </el-form-item>
-              <el-form-item label="邮箱">
-                <el-input v-model="resetForm.phone" class="passwordInput" placeholder="请输入用户名绑定的邮箱"></el-input>
+              <p>{{ resetMessage }}</p>
+              <el-form-item label="邮箱" prop="email">
+                <el-input type="email" v-model="resetForm.email" :disabled="resetEmail" class="passwordInput" placeholder="请输入邮箱"></el-input>
                 <el-button :disabled="resetDisabled" v-model="resetDisabled" type="warning" @click="getCaptcha" style="margin-left: 20px; right: 0;">
                   {{ resetButton }}</el-button>
               </el-form-item>
-              <el-form-item label="验证码">
-                <el-input v-model="resetForm.captcha" :disabled="resetCaptcha" placeholder="请输入收到的验证码"></el-input>
+              <el-form-item label="验证码" prop="captcha2">
+                <el-input v-model="resetForm.captcha2" :disabled="resetCaptcha" placeholder="请输入收到的验证码"></el-input>
               </el-form-item>
             </el-form>
           </el-card>
           <div class="passwordSubmit">
             <el-button @click="cancelForm">取 消</el-button>
-            <el-button type="primary" @click="nextChange" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
+            <el-button type="primary" @click="resetPassword('resetForm')" :loading="loading">{{ loading ? '提交中 ...' : '确 定' }}</el-button>
           </div>
         </div>
       </el-drawer>
@@ -140,7 +142,7 @@ html,body { height: 100%; }
 
 <script>
 import { getYZ } from "@/http/api";
-import {  login } from "@/http/api";
+import {  login, post } from "@/http/api";
 import { ElMessage } from 'element-plus';
 import { checkCookie, setCookie } from "@/http/cookie";
 
@@ -149,21 +151,21 @@ export default {
   name: 'Home',
 
   data() {
-    const validateName = (rule, value, callback) => {
+    let validateName = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入用户名'))
       } else {
         callback()
       }
     }
-    const validatePass = (rule, value, callback) => {
+    let validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'))
       } else {
         callback()
       }
     }
-    const validateCaptcha = (rule, value, callback) => {
+    let validateCaptcha = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入验证码'))
       } else {
@@ -179,42 +181,47 @@ export default {
         url: '',
       },
       ruleForm: {
-        username: '',
+        name: '',
         password: '',
         captcha: '',
         cookie: false,
         __token__: ''
       },
       rules: {
-        username: [
-          {
-            validator: validateName,
-            trigger: 'blur'
-          }
+        name: [
+          { validator: validateName, trigger: 'blur' }
         ],
         password: [
-          {
-            validator: validatePass,
-            trigger: 'blur'
-          }
+          { validator: validatePass, trigger: 'blur' }
         ],
         captcha: [
-          {
-            validator: validateCaptcha,
-            trigger: 'blur'
-          }
+          { validator: validateCaptcha, trigger: 'blur' }
+        ],
+      },
+      // 重置密码验证规则
+      rulePassword: {
+        username: [
+          { required: true, message: '请输入用户名',trigger: 'blur' }
+        ],
+        email: [
+          { required: true, message: '请输入邮箱', trigger: 'blur' }
+        ],
+        captcha2: [
+          { required: true, message: '请输入验证码', trigger: 'blur' }
         ]
       },
-      // 重置密码
+      // 重置密码数据
       active: 1,
       dialog: true,
       loading: false,
       resetForm: {
-        name: '',
-        phone: '',
-        captcha: ''
+        username: '',
+        email: '',
+        captcha2: ''
       },
-      resetDisabled: false,
+      resetEmail: true,
+      resetDisabled: true,
+      resetMessage: '',
       resetButton: '发送验证码',
       resetCaptcha: true,
       formLabelWidth: '80px'
@@ -230,7 +237,7 @@ export default {
         this.image.url = data['captcha']
       })
     },
-    submitForm: function (formName) {
+    submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login('/login_check', this.ruleForm).then(data => {
@@ -272,35 +279,78 @@ export default {
             }
           })
         } else {
-          console.log('提交错误~');
+          this.$message({
+            type: 'error',
+            message: '表单提交错误！',
+            showClose: true
+          })
           return false;
         }
-      });
+      })
     },
     // 重置密码
+    getMail() {
+      if (this.resetForm.username === ''){
+        this.$message.error('用户名不能为空')
+      } else {
+        post('/password/search', this.resetForm).then(data => {
+          if (data.error) {
+            this.$message.error(data.error)
+          } else {
+            this.resetEmail = false
+            this.resetDisabled = false
+            this.resetMessage = '请输入与' + data + '对应的邮箱获取验证码'
+          }
+        })
+      }
+    },
     getCaptcha() {
       // 异步发送信息获取验证码
-      this.resetDisabled = true
-      console.log(this.resetDisabled)
-      let i=59
-      setInterval(() => {
-        if (i>0) {
-          this.resetButton = i + '秒后重新获取'
-          i--
-        }
-      }, 1000)
-      setTimeout( () => {
-        this.resetButton = '重新发送'
-        this.resetDisabled = false
-      }, 60000)
-      this.resetCaptcha = false
+      if (this.resetForm.username === ''){
+        this.$message.error('邮箱不能为空')
+      } else {
+        post('/password/send', this.resetForm).then(data => {
+          if (data.error) {
+            this.$message.error(data.error)
+          } else {
+            this.$message.success(data)
+            this.resetCaptcha = false
+          }
+        })
+        this.resetDisabled = true
+        let i=59
+        setInterval(() => {
+          if (i>0) {
+            this.resetButton = i + '秒后获取'
+            i--
+          }
+        }, 1000)
+        setTimeout( () => {
+          this.resetButton = '重新发送'
+          this.resetDisabled = false
+        }, 60000)
+      }
     },
     nextChange() {
       if (this.active <2 ) this.active ++
     },
+    resetPassword(formName) {
+      this.$refs[formName].validate((valid) => {
+        if (valid) {
+          return true;
+        } else {
+          this.$message({
+            type: 'error',
+            message: '表单提交错误！',
+            showClose: true
+          })
+          return false;
+        }
+      })
+    },
     handleClose() {
       // 关闭拟态窗之前
-      return;
+      return true;
     },
     // 取消修改密码
     cancelForm() {

@@ -29,7 +29,28 @@ module.exports = {
                 pathRewrite: {
                     '^/token': '/token'
                 }
-            }
+            },
+            '/password/search': {
+                target: 'http://api.tvemaker.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/password/search': '/password/search'
+                }
+            },
+            '/password/send': {
+                target: 'http://api.tvemaker.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/password/send': '/password/send'
+                }
+            },
+            '/password/check': {
+                target: 'http://api.tvemaker.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/password/check': '/password/check'
+                }
+            },
         }
     }
 }
