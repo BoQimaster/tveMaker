@@ -75,6 +75,41 @@ class Password
 
     public function check(Request $request)
     {
+        $data = $request->param();
 
+        // 错误集合
+        $errors = [];
+
+        // 验证码
+        if(!captcha_check($data['captcha'])) {
+
+            $errors['error'] = '验证码错误！';
+        }
+
+        // 验证判断
+        if(!empty($errors)) {
+            return json($errors);
+        } else {
+            return '验证成功！';
+        }
+    }
+
+    public function reset(Request $request)
+    {
+        $data = $request->param();
+
+        // 错误集合
+        $errors = [];
+
+        // 验证
+        $user = AdminModel::where('name', $data['username'])->findOrEmpty();
+        if($user->isEmpty()) {
+            $errors['error'] = '用户名数据错误，请返回第一步重新提交验证！';
+            return json($errors);
+        } else {
+            $user->password = sha1($data['password']);
+            $user->save();
+            return '密码已重置，请使用新密码重新登录';
+        }
     }
 }

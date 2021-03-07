@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- 主机： 127.0.0.1
--- 生成日期： 2021-03-04 23:23:26
+-- 生成日期： 2021-03-07 19:10:17
 -- 服务器版本： 8.0.19
 -- PHP 版本： 7.4.6
 
@@ -67,7 +67,7 @@ CREATE TABLE `tve_administrators` (
 --
 
 INSERT INTO `tve_administrators` (`id`, `uid`, `name`, `password`, `email`, `nickname`, `avatar`, `status`, `delete_time`, `create_time`, `update_time`) VALUES
-(1, '4314cc73fec9fc3ade64db14388c946d', 'tvemaker', '7c4a8d09ca3762af61e59520943dc26494f8941b', 'admin@tvemaker.com', '超级管理员', 'http://api.tvemaker.com//storage/img/avatar/20210224/bc40605adcb1d34caf9a7855627aaeb9.jpg', 0, NULL, '2021-02-23 17:48:58', '2021-03-04 23:16:59');
+(1, '4314cc73fec9fc3ade64db14388c946d', 'tvemaker', '7c4a8d09ca3762af61e59520943dc26494f8941b', '752228015@qq.com', '超级管理员', 'http://api.tvemaker.com//storage/img/avatar/20210224/bc40605adcb1d34caf9a7855627aaeb9.jpg', 0, NULL, '2021-02-23 17:48:58', '2021-03-07 19:04:57');
 
 -- --------------------------------------------------------
 
@@ -130,8 +130,7 @@ ALTER TABLE `tve_access`
 ALTER TABLE `tve_administrators`
   ADD PRIMARY KEY (`id`),
   ADD UNIQUE KEY `name` (`name`),
-  ADD UNIQUE KEY `uid` (`uid`),
-  ADD UNIQUE KEY `email` (`email`);
+  ADD UNIQUE KEY `uid` (`uid`);
 
 --
 -- 表的索引 `tve_administrators_info`

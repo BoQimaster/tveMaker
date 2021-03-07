@@ -51,6 +51,13 @@ module.exports = {
                     '^/password/check': '/password/check'
                 }
             },
+            '/password/reset': {
+                target: 'http://api.tvemaker.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/password/reset': '/password/reset'
+                }
+            },
         }
     }
 }
