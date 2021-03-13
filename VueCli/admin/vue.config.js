@@ -16,11 +16,18 @@ module.exports = {
                     '^/admin_upload': '/admin_upload'
                 }
             },
-            '/login_check': {
+            '/admin/login': {
                 target: 'http://api.tvemaker.com',
                 changeOrigin: true,
                 pathRewrite: {
-                    '^/login_check': '/login_check'
+                    '^/admin/login': '/admin/login'
+                }
+            },
+            '/admin/check': {
+                target: 'http://api.tvemaker.com',
+                changeOrigin: true,
+                pathRewrite: {
+                    '^/admin/check': '/admin/check'
                 }
             },
             '/token': {
@@ -58,6 +65,7 @@ module.exports = {
                     '^/password/reset': '/password/reset'
                 }
             },
+
         }
     }
 }

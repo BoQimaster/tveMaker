@@ -18,9 +18,14 @@ Route::get('think', function () {
 Route::get('hello/:name', 'index/hello');
 
 // 后台登录模块路由
-Route::get('token', 'Token/index');
-Route::post('login_check', 'AdminLogin/check');
+//Route::post('admin/login', 'Admin/login');
+
+
+Route::post('jwt/read', 'Jwt/read');
 
 
 // 文件上传
 Route::resource('admin_upload', 'AdminUpload');
+
+// 验证码
+Route::resource('captcha', 'Captcha');

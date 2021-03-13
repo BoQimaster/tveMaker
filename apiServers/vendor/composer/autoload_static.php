@@ -7,11 +7,12 @@ namespace Composer\Autoload;
 class ComposerStaticInit72cfff82cd321315faf395192393e978
 {
     public static $files = array (
+        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '9b552a3cc426e3287cc811caefa3cf53' => __DIR__ . '/..' . '/topthink/think-helper/src/helper.php',
         '0e6d7bf4a5811bfa5cf40c5ccd6fae6a' => __DIR__ . '/..' . '/symfony/polyfill-mbstring/bootstrap.php',
         '25072dd6e2470089de65ae7bf11d3109' => __DIR__ . '/..' . '/symfony/polyfill-php72/bootstrap.php',
-        'a4a119a56e50fbb293281d9a48007e0e' => __DIR__ . '/..' . '/symfony/polyfill-php80/bootstrap.php',
         '667aeda72477189d0494fecd327c3641' => __DIR__ . '/..' . '/symfony/var-dumper/Resources/functions/dump.php',
+        'cc25fa796cd7d2989f16cf9daf45371d' => __DIR__ . '/..' . '/thans/tp-jwt-auth/src/helper.php',
         '1cfd2761b63b0a29ed23657ea394cb2d' => __DIR__ . '/..' . '/topthink/think-captcha/src/helper.php',
     );
 
@@ -19,8 +20,11 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
         't' => 
         array (
             'think\\trace\\' => 12,
+            'think\\migration\\' => 16,
             'think\\captcha\\' => 14,
             'think\\' => 6,
+            'thans\\jwt\\' => 10,
+            'tauthz\\' => 7,
         ),
         'a' => 
         array (
@@ -31,7 +35,12 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
             'Symfony\\Polyfill\\Php80\\' => 23,
             'Symfony\\Polyfill\\Php72\\' => 23,
             'Symfony\\Polyfill\\Mbstring\\' => 26,
+            'Symfony\\Contracts\\Service\\' => 26,
+            'Symfony\\Contracts\\Cache\\' => 24,
+            'Symfony\\Component\\VarExporter\\' => 30,
             'Symfony\\Component\\VarDumper\\' => 28,
+            'Symfony\\Component\\ExpressionLanguage\\' => 37,
+            'Symfony\\Component\\Cache\\' => 24,
         ),
         'P' => 
         array (
@@ -39,6 +48,7 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
             'Psr\\Log\\' => 8,
             'Psr\\Container\\' => 14,
             'Psr\\Cache\\' => 10,
+            'Phinx\\' => 6,
             'PHPMailer\\PHPMailer\\' => 20,
         ),
         'L' => 
@@ -46,6 +56,16 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
             'League\\MimeTypeDetection\\' => 25,
             'League\\Flysystem\\Cached\\' => 24,
             'League\\Flysystem\\' => 17,
+            'Lcobucci\\JWT\\' => 13,
+        ),
+        'I' => 
+        array (
+            'IPTools\\' => 8,
+        ),
+        'C' => 
+        array (
+            'Casbin\\Bridge\\Logger\\' => 21,
+            'Casbin\\' => 7,
         ),
     );
 
@@ -53,6 +73,10 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
         'think\\trace\\' => 
         array (
             0 => __DIR__ . '/..' . '/topthink/think-trace/src',
+        ),
+        'think\\migration\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/topthink/think-migration/src',
         ),
         'think\\captcha\\' => 
         array (
@@ -63,6 +87,14 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
             0 => __DIR__ . '/..' . '/topthink/framework/src/think',
             1 => __DIR__ . '/..' . '/topthink/think-helper/src',
             2 => __DIR__ . '/..' . '/topthink/think-orm/src',
+        ),
+        'thans\\jwt\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/thans/tp-jwt-auth/src',
+        ),
+        'tauthz\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/casbin/think-authz/src',
         ),
         'app\\' => 
         array (
@@ -80,9 +112,29 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
         array (
             0 => __DIR__ . '/..' . '/symfony/polyfill-mbstring',
         ),
+        'Symfony\\Contracts\\Service\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/service-contracts',
+        ),
+        'Symfony\\Contracts\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/cache-contracts',
+        ),
+        'Symfony\\Component\\VarExporter\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/var-exporter',
+        ),
         'Symfony\\Component\\VarDumper\\' => 
         array (
             0 => __DIR__ . '/..' . '/symfony/var-dumper',
+        ),
+        'Symfony\\Component\\ExpressionLanguage\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/expression-language',
+        ),
+        'Symfony\\Component\\Cache\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/symfony/cache',
         ),
         'Psr\\SimpleCache\\' => 
         array (
@@ -100,6 +152,10 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
         ),
+        'Phinx\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/topthink/think-migration/phinx/src/Phinx',
+        ),
         'PHPMailer\\PHPMailer\\' => 
         array (
             0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
@@ -115,6 +171,22 @@ class ComposerStaticInit72cfff82cd321315faf395192393e978
         'League\\Flysystem\\' => 
         array (
             0 => __DIR__ . '/..' . '/league/flysystem/src',
+        ),
+        'Lcobucci\\JWT\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/lcobucci/jwt/src',
+        ),
+        'IPTools\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/s1lentium/iptools/src',
+        ),
+        'Casbin\\Bridge\\Logger\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/casbin/psr3-bridge/src',
+        ),
+        'Casbin\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/casbin/casbin/src',
         ),
     );
 

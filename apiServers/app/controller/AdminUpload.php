@@ -28,7 +28,9 @@ class AdminUpload
     public function save(Request $request)
     {
         // 定位更新对象
-        $id = $request->param('data').id;
+        $data = $request->param();
+
+        $id = $data['id'];
 
         if($id) {
             // 查找数据
@@ -40,7 +42,7 @@ class AdminUpload
             $info = Filesystem::putFile('/img/avatar', $file);
 
             // 获取存储位置
-            $url = 'http://api.tvemaker.com' .Filesystem::getDiskConfig('public', 'url').'/'.str_replace('\\','/',$info);
+            $url = 'http://api.tvemaker.com'. '/' .Filesystem::getDiskConfig('public', 'url'). '/' .str_replace('\\','/',$info);
 
             // 更新头像地址
             $user->avatar = $url;

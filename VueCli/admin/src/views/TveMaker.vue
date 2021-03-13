@@ -51,15 +51,13 @@
 
 <script>
 import { mapState } from 'vuex';
-import { getCookie, checkCookie, logout } from "@/http/cookie";
+import { post } from "@/http/api";
 
 export default {
   name: "TveMaker",
 
   data() {
     return {
-      nickname: '',
-      avatar: '',
       logoutDialogVisible: false,
 
     }
@@ -67,7 +65,8 @@ export default {
   computed: {
 
     ...mapState({
-
+      nickname: state => state.user.nickname,
+      avatar:   state => state.user.avatar
     })
   },
   methods: {
@@ -75,27 +74,30 @@ export default {
       return true
     },
     logout() {
-      logout('userData')
+      // 登出
       this.$router.push('/')
     },
 
   },
-  // 加载之前初始化数据
+  // 路由初始化
   created() {
-    if (checkCookie('userData')) {
-      const userData = JSON.parse(getCookie('userData'))
-      this.nickname = userData.nickname
-      this.avatar = userData.avatar
-    } else if (sessionStorage.key('userData')) {
-      let userData = sessionStorage.getItem('userData')
-      userData = JSON.parse(decodeURIComponent(userData))
-      this.nickname = userData.nickname
-      this.avatar = userData.avatar
-    } else {
+    const token = localStorage.getItem('token')
+    if( token === '') {
       this.$router.push('/')
+    } else {
+      post('/admin/check','', token).then(data => {
+        // token验证成功
+        // 保存登录信息到vueX
+        this.$store.commit('setUser', data)
+      }).catch(err => {
+        // token验证失败
+        localStorage.removeItem('token')
+        err.message = 'Token已过期，请重新登录'
+        this.$router.push('/')
+        this.$message.error(err.message)
+      })
     }
   }
-
 }
 </script>
 

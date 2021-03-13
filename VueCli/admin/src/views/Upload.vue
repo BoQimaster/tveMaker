@@ -6,7 +6,7 @@
           <el-upload
               class="avatar-uploader"
               name="avatar"
-              action="http://api.tvemaker.com/admin_upload"
+              action="/admin_upload"
               :data="data"
               :show-file-list="false"
               :on-error="uploadError"
@@ -25,8 +25,7 @@
 <script>
 
 import { mapState } from "vuex";
-import { checkCookie } from "@/http/cookie";
-import { getCookie } from "@/http/cookie";
+import { post } from "@/http/api";
 
 
 export default {
@@ -36,7 +35,7 @@ name: "Upload",
     return {
       imageUrl: '',
       data: {
-        id: ''
+        id: this.id
       }
 
 
@@ -44,7 +43,7 @@ name: "Upload",
   },
   computed: {
     ...mapState({
-
+      id: state => state.user.id
     })
   },
   methods: {
@@ -72,15 +71,21 @@ name: "Upload",
   },
   // 加载之前初始化数据
   created() {
-    if (checkCookie('userData')) {
-      const userData = JSON.parse(getCookie('userData'))
-      this.data.id = userData.id
-    } else if (sessionStorage.key('userData')) {
-      let userData = sessionStorage.getItem('userData')
-      userData = JSON.parse(decodeURIComponent(userData))
-      this.data.id = userData.id
-    } else {
+    const token = localStorage.getItem('token')
+    if( token === '') {
       this.$router.push('/')
+    } else {
+      post('/admin/check','', token).then(data => {
+        // token验证成功
+        // 保存登录信息到vueX
+        this.$store.commit('setUser', data)
+      }).catch(err => {
+        // token验证失败
+        localStorage.removeItem('token')
+        err.message = 'Token已过期，请重新登录'
+        this.$router.push('/')
+        this.$message.error(err.message)
+      })
     }
   }
 }

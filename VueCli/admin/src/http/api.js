@@ -1,6 +1,6 @@
 import axios from "axios";
 
-export function getYZ(url) {
+export function get(url) {
     return new Promise((resolve, reject) => {
         axios({
             method: 'get',
@@ -29,32 +29,20 @@ export function upload(url, data) {
     })
 }
 
-export function login(url, data) {
+export function post(url, data, token) {
     return new Promise((resolve, reject) => {
         axios({
             method: 'post',
             url: url,
             data: data,
+            headers: { 'Authorization': 'bearer ' + token },
             responseType: 'json',
         }).then(res => {
             resolve (res.data)
         }).catch(err => {
-            reject(err.data)
+            reject(err)
         })
     })
 }
 
-export function post(url, data) {
-    return new Promise((resolve, reject) => {
-        axios({
-            method: 'post',
-            url: url,
-            data: data,
-            responseType: 'json',
-        }).then(res => {
-            resolve (res.data)
-        }).catch(err => {
-            reject(err.data)
-        })
-    })
-}
+

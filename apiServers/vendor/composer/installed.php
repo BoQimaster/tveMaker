@@ -6,11 +6,47 @@
     'aliases' => 
     array (
     ),
-    'reference' => '152020609fb41059ce99d67c493d9111d832ac21',
+    'reference' => '91c4faba3cd49eba7bb16c8e60fc1c180f7938c1',
     'name' => 'topthink/think',
   ),
   'versions' => 
   array (
+    'casbin/casbin' => 
+    array (
+      'pretty_version' => 'v3.1.0',
+      'version' => '3.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '1b10db034ba33ae3ec927438e7ef688d9561266c',
+    ),
+    'casbin/psr3-bridge' => 
+    array (
+      'pretty_version' => 'v1.3.0',
+      'version' => '1.3.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '846be79ddb0cbf1bcc85f0f63879cf966538ad36',
+    ),
+    'casbin/think-authz' => 
+    array (
+      'pretty_version' => 'v1.2.1',
+      'version' => '1.2.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'dab3c1d46fdc5487e6767d05f96132657c5cfb87',
+    ),
+    'lcobucci/jwt' => 
+    array (
+      'pretty_version' => '3.3.3',
+      'version' => '3.3.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c1123697f6a2ec29162b82f170dd4a491f524773',
+    ),
     'league/flysystem' => 
     array (
       'pretty_version' => '1.1.3',
@@ -56,6 +92,13 @@
       ),
       'reference' => 'd11b50ad223250cf17b86e38383413f5a6764bf8',
     ),
+    'psr/cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
+    ),
     'psr/container' => 
     array (
       'pretty_version' => '1.0.0',
@@ -82,6 +125,56 @@
       array (
       ),
       'reference' => '408d5eafb83c57f6365a3ca330ff23aa4a5fa39b',
+    ),
+    'psr/simple-cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0',
+      ),
+    ),
+    's1lentium/iptools' => 
+    array (
+      'pretty_version' => 'v1.1.1',
+      'version' => '1.1.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'f6f8ab6132ca7443bd7cced1681f5066d725fd5f',
+    ),
+    'symfony/cache' => 
+    array (
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd15fb2576cdbe2c40d7c851e62f85b0faff3dd3d',
+    ),
+    'symfony/cache-contracts' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '8034ca0b61d4dd967f3698aaa1da2507b631d0cb',
+    ),
+    'symfony/cache-implementation' => 
+    array (
+      'provided' => 
+      array (
+        0 => '1.0|2.0',
+      ),
+    ),
+    'symfony/expression-language' => 
+    array (
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '3fc560e62bc5121751b792b11505db03a12cf83c',
     ),
     'symfony/polyfill-mbstring' => 
     array (
@@ -110,6 +203,15 @@
       ),
       'reference' => 'dc3063ba22c2a1fd2f45ed856374d79114998f91',
     ),
+    'symfony/service-contracts' => 
+    array (
+      'pretty_version' => 'v2.2.0',
+      'version' => '2.2.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd15da7ba4957ffb8f1747218be9e1a121fd298a1',
+    ),
     'symfony/var-dumper' => 
     array (
       'pretty_version' => 'v4.4.19',
@@ -118,6 +220,24 @@
       array (
       ),
       'reference' => 'a1eab2f69906dc83c5ddba4632180260d0ab4f7f',
+    ),
+    'symfony/var-exporter' => 
+    array (
+      'pretty_version' => 'v5.2.4',
+      'version' => '5.2.4.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5aed4875ab514c8cb9b6ff4772baa25fa4c10307',
+    ),
+    'thans/tp-jwt-auth' => 
+    array (
+      'pretty_version' => 'v1.1.1',
+      'version' => '1.1.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'e1a4f3634333f86f68398fccf753949f666d9b4e',
     ),
     'topthink/framework' => 
     array (
@@ -135,7 +255,7 @@
       'aliases' => 
       array (
       ),
-      'reference' => '152020609fb41059ce99d67c493d9111d832ac21',
+      'reference' => '91c4faba3cd49eba7bb16c8e60fc1c180f7938c1',
     ),
     'topthink/think-captcha' => 
     array (
@@ -154,6 +274,15 @@
       array (
       ),
       'reference' => 'c28d37743bda4a0455286ca85b17b5791d626e10',
+    ),
+    'topthink/think-migration' => 
+    array (
+      'pretty_version' => 'v3.0.3',
+      'version' => '3.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '5717d9e5f3ea745f6dbfd1e30b4402aaadff9a79',
     ),
     'topthink/think-orm' => 
     array (

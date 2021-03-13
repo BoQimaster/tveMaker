@@ -24,7 +24,9 @@
         "topthink/framework": "^6.0.0",
         "topthink/think-orm": "^2.0",
         "topthink/think-captcha": "^3.0",
-        "phpmailer/phpmailer": "^6.3"
+        "phpmailer/phpmailer": "^6.3",
+        "thans/tp-jwt-auth": "^1.1",
+        "casbin/think-authz": "^1.2"
     },
     "require-dev": {
         "symfony/var-dumper": "^4.2",

@@ -23,7 +23,7 @@
                 <el-form-item label="验证码" prop="captcha">
                   <el-input v-model.trim="loginForm.captcha" autocomplete="off" id="captcha">
                     <template #append>
-                      <div class="block" @click="ref">
+                      <div class="block" @click="getLoginCaptcha">
                         <el-image :src="image.url" fit="cover" class="btn-image" style="border-radius: 0 4px 4px 0;">
                           <template #placeholder>
                             <div class="image-slot"><i class="el-icon-loading"></i></div>
@@ -152,10 +152,8 @@ html,body { height: 100%; }
 </style>
 
 <script>
-import { getYZ } from "@/http/api";
-import {  login, post } from "@/http/api";
+import { get, post } from "@/http/api";
 import { ElMessage } from 'element-plus';
-import { checkCookie, setCookie } from "@/http/cookie";
 
 
 export default {
@@ -275,63 +273,50 @@ export default {
 
   },
   methods: {
-    // 重新获取验证码方法
-    ref() {
-      getYZ('/token').then(data => {
-        this.loginForm.__token__ = data['token']
-        this.image.url = data['captcha']
+    // 获取验证码
+    getLoginCaptcha() {
+      get('/captcha').then(data => {
+        this.image.url = data
       })
     },
     // 三次错误后可以重置密码
     nextChange() {
       if (this.active <2 ) this.active ++
     },
-    // 登录表单方法
+    // 登录验证后返回
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          login('/login_check', this.loginForm).then(data => {
-            try {
-              if (data.id) {
-                if (data.cookie === true) {
-                  delete data.cookie
-                  this.$store.commit('getInfo', data)
-                  let userData = JSON.stringify(data)
-                  userData = encodeURIComponent(userData)
-                  sessionStorage.setItem('userData', userData)
-                  setCookie('userData', userData, 6, '/')
-                } else {
-                  this.$store.commit('getInfo', data)
-                  let userData = JSON.stringify(data)
-                  userData = encodeURIComponent(userData)
-                  sessionStorage.setItem('userData', userData)
+          post('/admin/login', this.loginForm).then(data => {
+            if (data.token) {
+              // 保存到本地sessionStorage
+              localStorage.setItem('token', data.token)
+              // 保存登录信息到vueX
+              this.$store.commit('setUser', data.user)
+              // 成功后提示信息和跳转
+              this.$message.success('验证成功！欢迎'+ data.user.nickname)
+              setTimeout(() => this.$router.push('/tveMaker'), 1000)
+            } else {
+              if (this.reset.count === 2) this.reset.show = true
+              for (let err of data) {
+                if (err === '用户名或密码错误~') {
+                  this.reset.count += 1
                 }
-                this.$message.success('验证成功！欢迎 ' + data.nickname)
-                setTimeout(() => this.$router.push('/tveMaker'), 1000)
-              } else {
-                if (this.reset.count === 2) this.reset.show = true
-                for (let err of data) {
-                  if (err === '用户名或密码错误~') {
-                    this.reset.count += 1
-                  }
-                  setTimeout(function () {
-                    ElMessage({
-                      showClose: true,
-                      message: err,
-                      type: 'error',
-                    })
-                  }, 50)
-                  this.ref()
-                }
+                setTimeout(function () {
+                  ElMessage({
+                    showClose: true,
+                    message: err,
+                    type: 'error',
+                  })
+                }, 50)
+                this.getLoginCaptcha()
               }
-            } catch (err) {
-              alert(err)
             }
           })
         } else {
           this.$message({
             type: 'error',
-            message: '表单提交错误！',
+            message: '提交错误！',
             showClose: true
           })
           return false;
@@ -457,15 +442,26 @@ export default {
     }
   },
 
-  // 加载页面之前初始化
+  // 初始化判断
   created() {
-    if (checkCookie('userData') || sessionStorage.key('userData')) {
-      this.$router.push('/tveMaker')
+    const token = localStorage.getItem('token')
+    if (token === null) {
+      this.getLoginCaptcha()
     } else {
-      this.ref()
+      post('/admin/check','', token).then(data => {
+        // token验证成功
+        this.$router.push('/tveMaker')
+        // 保存登录信息到vueX
+        this.$store.commit('setUser', data)
+      }).catch(err => {
+        // token验证失败
+        localStorage.removeItem('token')
+        err.message = 'Token已过期，请重新登录'
+        this.$message.error(err.message)
+        this.getLoginCaptcha()
+      })
     }
   }
 }
-
 
 </script>
